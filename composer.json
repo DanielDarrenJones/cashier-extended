@@ -1,0 +1,54 @@
+{
+    "name": "steadfastcollective/cashier-extended",
+    "description": "",
+    "keywords": [
+        "steadfastcollective",
+        "cashier-extended"
+    ],
+    "homepage": "https://github.com/steadfastcollective/cashier-extended",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Daniel Jones",
+            "email": "daniel@steadfastcollective.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "illuminate/support": "5.8.*"
+    },
+    "require-dev": {
+        "orchestra/testbench": "3.8.*",
+        "phpunit/phpunit": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "SteadfastCollective\\CashierExtended\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SteadfastCollective\\CashierExtended\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SteadfastCollective\\CashierExtended\\CashierExtendedServiceProvider"
+            ],
+            "aliases": {
+                "CashierExtended": "SteadfastCollective\\CashierExtended\\CashierExtendedFacade"
+            }
+        }
+    }
+}
