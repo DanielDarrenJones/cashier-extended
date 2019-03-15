@@ -2,7 +2,12 @@
 
 namespace SteadfastCollective\CashierExtended;
 
-class CashierExtended
+use Laravel\Cashier\Cashier;
+
+class CashierExtended extends Cashier
 {
-    // Build your next great package.
+    public function __construct()
+    {
+        parent::__construct();
+    }
 }

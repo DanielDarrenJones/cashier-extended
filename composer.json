@@ -3,6 +3,8 @@
     "description": "",
     "keywords": [
         "steadfastcollective",
+        "cashier",
+        "cashier-plus",
         "cashier-extended"
     ],
     "homepage": "https://github.com/steadfastcollective/cashier-extended",
@@ -17,7 +19,8 @@
     ],
     "require": {
         "php": "^7.1",
-        "illuminate/support": "5.8.*"
+        "illuminate/support": "5.8.*",
+        "laravel/cashier": "^9.2"
     },
     "require-dev": {
         "orchestra/testbench": "3.8.*",
