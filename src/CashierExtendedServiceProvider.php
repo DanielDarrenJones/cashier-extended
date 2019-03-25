@@ -45,5 +45,11 @@ class CashierExtendedServiceProvider extends ServiceProvider
         $this->app->singleton('cashier-extended', function () {
             return new CashierExtended;
         });
+
+        // Coupons
+        $this->app->bind(
+            \SteadfastCollective\CashierExtended\Contracts\Repositories\CouponRepository::class,
+            \SteadfastCollective\CashierExtended\Repositories\CouponRepository::class
+        );
     }
 }

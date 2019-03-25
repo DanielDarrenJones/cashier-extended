@@ -2,9 +2,9 @@
 
 namespace SteadfastCollective\CashierExtended;
 
-use Laravel\Cashier\Subscription;
+use Laravel\Cashier\Subscription as CashierSubscription;
 
-class Subscription extends Subscription
+class Subscription extends CashierSubscription
 {
     //
 }
