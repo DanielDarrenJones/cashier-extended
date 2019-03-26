@@ -10,8 +10,8 @@ trait Billable
         charge as parentCharge;
     }
 
-    public function charge($name, $amount) {
-        $charge = $this->parentCharge($amount);
+    public function charge($name, $amount, array $options = []) {
+        $charge = $this->parentCharge($amount, $options);
 
         // Save the charge
         return $this->charges()->create([
