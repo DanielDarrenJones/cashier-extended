@@ -6,6 +6,10 @@
 <a href="https://packagist.org/packages/steadfastcollective/cashier-extended"><img src="https://poser.pugx.org/steadfastcollective/cashier-extended/license.svg" alt="License"></a>
 </p>
 
+## WARNING
+
+This package is still under heavy development, we would strongly not recommend using this in its current state. 
+
 ## Introduction
 
 Laravel Cashier provides an expressive, fluent interface to [Stripe's](https://stripe.com) subscription billing services. It handles almost all of the boilerplate subscription billing code you are dreading writing. In addition to basic subscription management, Cashier can handle coupons, swapping subscription, subscription "quantities", cancellation grace periods, and even generate invoice PDFs.
@@ -127,7 +131,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ### Security
 
-If you discover any security related issues, please email daniel@steadfastcollective.com instead of using the issue tracker.
+If you discover any security related issues, please email dev@steadfastcollective.com instead of using the issue tracker.
 
 ## Credits
 
