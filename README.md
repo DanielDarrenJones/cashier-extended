@@ -1,4 +1,4 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-cashier.svg"></p>
+<p align="center"><img width="200px" src="https://dzwonsemrish7.cloudfront.net/items/0t1D0x1M381Y0f2X0Q0c/Laravel_Cashier@2x.png?v=7501b112"></p>
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/cashier"><img src="https://travis-ci.org/laravel/cashier.svg" alt="Build Status"></a>
