@@ -2,7 +2,7 @@
 
 <p align="center">
 <a href="https://packagist.org/packages/steadfastcollective/cashier-extended"><img src="https://poser.pugx.org/steadfastcollective/cashier-extended/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/steadfastcollective/cashier-extended"><img src="https://poser.pugx.org/laravel/cashier/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/steadfastcollective/cashier-extended"><img src="https://poser.pugx.org/steadfastcollective/cashier-extended/v/stable.svg" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/steadfastcollective/cashier-extended"><img src="https://poser.pugx.org/steadfastcollective/cashier-extended/license.svg" alt="License"></a>
 </p>
 
