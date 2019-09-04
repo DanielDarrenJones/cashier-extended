@@ -6,6 +6,6 @@ All notable changes to `cashier-extended` will be documented in this file
 
 - initial release
 
-## 1.0.0 - 2019-09-04
+## 2.0.0 - 2019-09-04
 
 - Updated compatibility with Cashier 10.0.
