@@ -17,7 +17,6 @@ Cashier Extended improves upon the core of Laravel Cashier by adding a store of 
 
 Documentation for Laravel Cashier can be found on the [Laravel website](https://laravel.com/docs/billing), there are several changes to make when using Laravel Cashier Extended, which are detailed below.
 
-## Installation
 
 ## Installation
 
