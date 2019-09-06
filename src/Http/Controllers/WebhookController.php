@@ -1,11 +1,10 @@
 <?php
 
-namespace SteadfastCollective\CashierExtended;
+namespace SteadfastCollective\CashierExtended\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Laravel\Cashier\Http\Controllers\WebhookController as CashierController;
 use SteadfastCollective\CashierExtended\Charge;
+use Illuminate\Support\Facades\Log;
 
 class WebhookController extends CashierController
 {
@@ -76,72 +75,42 @@ class WebhookController extends CashierController
     }
 
     /**
-     * Handle customer subscription updated.
+     * Handle Payment Intent Succeeded.
      *
-     * @param  array $payload
+     * @param  array  $payload
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function handleCustomerSubscriptionUpdated(array $payload)
+    protected function handlePaymentIntentSucceeded($payload)
     {
-        return $this->updateSubscription($payload);
+        return $this->updatePaymentIntentCharge($payload);
     }
 
-    protected function updateSubscription($payload)
+    /**
+     * Handle Payment Intent Succeeded.
+     *
+     * @param  array  $payload
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function handlePaymentIntentPaymentFailed($payload)
     {
-        $user = $this->getUserByStripeId($payload['data']['object']['customer']);
-        if ($user) {
-            $data = $payload['data']['object'];
-            $user->subscriptions()
-                ->where('stripe_id', $data['id'])
-                ->get()
-                ->each(function (Subscription $subscription) use ($data) {
-                    // Quantity...
-                    if (isset($data['quantity'])) {
-                        $subscription->quantity = $data['quantity'];
-                    }
-
-                    // Plan...
-                    if (isset($data['plan']['id'])) {
-                        $subscription->stripe_plan = $data['plan']['id'];
-                    }
-
-                    // Trial ending date...
-                    if (isset($data['trial_end'])) {
-                        $trial_ends = Carbon::createFromTimestamp($data['trial_end']);
-                        if (! $subscription->trial_ends_at || $subscription->trial_ends_at->ne($trial_ends)) {
-                            $subscription->trial_ends_at = $trial_ends;
-                        }
-                    }
-
-                    // Cancellation date...
-                    if (isset($data['cancel_at_period_end']) && $data['cancel_at_period_end']) {
-                        $subscription->ends_at = $subscription->onTrial()
-                            ? $subscription->trial_ends_at
-                            : Carbon::createFromTimestamp($data['current_period_end']);
-                    }
-
-                    // Status...
-                    if (isset($data['status']) && $data['status']) {
-                        $subscription->status = $data['status'];
-                    }
-
-                    $subscription->save();
-                });
-        }
-        return new Response('Webhook Handled', 200);
+        return $this->updatePaymentIntentCharge($payload);
     }
 
-    protected function updateCharge($payload)
+    protected function updatePaymentIntentCharge($payload)
     {
         $user = $this->getUserByStripeId($payload['data']['object']['customer']);
 
         if ($user) {
-            $data = $payload['data']['object'];
-
+            $data = collect($payload['data']['object']['charges']['data'])->first();
+        
             $user->charges()
-                ->where('stripe_id', $data['id'])
+                ->where('stripe_id', $payload['data']['object']['id'])
                 ->get()
                 ->each(function (Charge $charge) use ($data) {
+
+                    // Update Payment Intent ID to Charge ID
+                    // $charge->id = $data['id'];
+
                     // Paid...
                     if (isset($data['paid'])) {
                         $charge->paid_at = (bool) $data['paid'] ? now() : null;
@@ -157,10 +126,54 @@ class WebhookController extends CashierController
                         $charge->amount_refunded = (int) $data['amount_refunded'];
                     }
 
+                    // Status...
+                    if (isset($data['status'])) {
+                        $charge->stripe_status = $data['status'];
+                    }
+
                     $charge->save();
                 });
         }
 
-        return new Response('Webhook Handled', 200);
+        return $this->successMethod();
+    }
+
+    protected function updateCharge($payload)
+    {
+        $user = $this->getUserByStripeId($payload['data']['object']['customer']);
+
+        if ($user) {
+            $data = $payload['data']['object'];
+
+            $user->charges()
+                ->where('stripe_id', $data['id'])
+                ->get()
+                ->each(function (Charge $charge) use ($data) {
+
+                    // Paid...
+                    if (isset($data['paid'])) {
+                        $charge->paid_at = (bool) $data['paid'] ? now() : null;
+                    }
+
+                    // Amount...
+                    if (isset($data['amount'])) {
+                        $charge->amount = (int) $data['amount'];
+                    }
+
+                    // Amount Refunded...
+                    if (isset($data['amount_refunded'])) {
+                        $charge->amount_refunded = (int) $data['amount_refunded'];
+                    }
+
+                    // Status...
+                    if (isset($data['status'])) {
+                        $charge->stripe_status = $data['status'];
+                    }
+
+                    $charge->save();
+                });
+        }
+
+        return $this->successMethod();
     }
 }
