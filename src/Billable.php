@@ -33,9 +33,9 @@ trait Billable
             'name' => $name,
             'stripe_id' => $charge->id,
             'amount' => $charge->amount,
-            'amount_refunded' => $charge->amount_refunded,
+            'amount_refunded' => $charge->amount_refunded ?: 0 ,
             'currency' => $charge->currency,
-            'stripe_status' => $exception->payment->status,
+            'stripe_status' => $charge->status,
             'paid_at' => $charge->paid ? now() : null,
         ]);
     }
