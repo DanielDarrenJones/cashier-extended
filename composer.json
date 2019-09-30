@@ -19,7 +19,7 @@
     ],
     "require": {
         "php": "^7.1",
-        "illuminate/support": "5.8.*",
+        "illuminate/support": "^5.8.*",
         "laravel/cashier": "^10.0"
     },
     "require-dev": {
