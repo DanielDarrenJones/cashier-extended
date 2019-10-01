@@ -1,3 +1,4 @@
+<p align="center"><img width="300px" src="https://dzwonsemrish7.cloudfront.net/items/0t1D0x1M381Y0f2X0Q0c/Laravel_Cashier@2x.png?v=7501b112"></p>
 <p align="center">
 <a href="https://packagist.org/packages/steadfastcollective/cashier-extended"><img src="https://poser.pugx.org/steadfastcollective/cashier-extended/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/steadfastcollective/cashier-extended"><img src="https://poser.pugx.org/steadfastcollective/cashier-extended/v/stable.svg" alt="Latest Stable Version"></a>
