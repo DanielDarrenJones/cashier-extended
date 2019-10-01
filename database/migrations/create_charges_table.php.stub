@@ -19,6 +19,7 @@ class CreateChargesTable extends Migration
             $table->integer('amount');
             $table->integer('amount_refunded');
             $table->string('currency');
+            $table->string('stripe_status');
             $table->timestamp('paid_at')->nullable();
             $table->timestamps();
         });

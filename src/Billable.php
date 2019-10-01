@@ -3,6 +3,7 @@
 namespace SteadfastCollective\CashierExtended;
 
 use Laravel\Cashier\Billable as CashierBillable;
+use Laravel\Cashier\Exceptions\IncompletePayment;
 
 trait Billable
 {
@@ -10,16 +11,31 @@ trait Billable
         charge as parentCharge;
     }
 
-    public function charge($name, $amount, array $options = []) {
-        $charge = $this->parentCharge($amount, $options);
+    public function charge($name, $amount, $paymentMethod, array $options = []) {
+        try {
+            $charge = $this->parentCharge($amount, $paymentMethod, $options);
+        } catch (IncompletePayment $exception) {
+            $this->charges()->create([
+                'name' => $name,
+                'stripe_id' => $exception->payment->id,
+                'amount' => $exception->payment->amount,
+                'amount_refunded' => 0,
+                'currency' => $exception->payment->currency,
+                'stripe_status' => $exception->payment->status,
+                'paid_at' => $exception->payment->amount == 0 || $exception->payment->amount_received > 0 ? now() : null,
+            ]);
+
+            throw $exception;
+        }
 
         // Save the charge
         return $this->charges()->create([
             'name' => $name,
             'stripe_id' => $charge->id,
             'amount' => $charge->amount,
-            'amount_refunded' => $charge->amount_refunded,
+            'amount_refunded' => $charge->amount_refunded ?: 0 ,
             'currency' => $charge->currency,
+            'stripe_status' => $charge->status,
             'paid_at' => $charge->paid ? now() : null,
         ]);
     }
@@ -32,7 +48,7 @@ trait Billable
      */
     public function purchased($charge)
     {
-        return $this->charges()->where('name', $charge)->exists();
+        return $this->charges()->where('name', $charge)->where('stripe_status', 'succeeded')->whereNotNull('paid_at')->exists();
     }
 
     /**
