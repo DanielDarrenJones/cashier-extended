@@ -1,0 +1,33 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateChargeCouponsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up()
+    {
+        Schema::create('charge_coupons', function ($table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('code');
+            $table->unsignedInteger('amount_off')->nullable();
+            $table->decimal('percent_off', 5, 2)->nullable();
+            $table->unsignedInteger('max_redemptions');
+            $table->string('redeem_by')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down()
+    {
+        Schema::dropIfExists('charge_coupons');
+    }
+}
