@@ -21,7 +21,6 @@ class CreateSubscriptionCouponsTable extends Migration
             $table->string('duration_in_months')->nullable();
             $table->unsignedInteger('max_redemptions');
             $table->timestamp('redeem_by')->nullable();
-            $table->boolean('valid')->default(1);
             $table->timestamps();
         });
     }

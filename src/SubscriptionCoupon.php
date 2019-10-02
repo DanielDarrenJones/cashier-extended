@@ -65,8 +65,6 @@ class SubscriptionCoupon extends Model
         $this->max_redemptions = $coupon->max_redemptions;
 
         $this->redeem_by = Carbon::createFromTimestamp($coupon->redeem_by);
-
-        $this->valid = $coupon->valid;
         
         $this->save();
     }
