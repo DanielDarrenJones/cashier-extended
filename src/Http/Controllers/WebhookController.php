@@ -116,7 +116,9 @@ class WebhookController extends CashierController
                 'duration' => $payload['data']['duration'],
                 'duration_in_months' => $payload['data']['duration_in_months'],
                 'max_redemptions' => $payload['data']['max_redemptions'],
+                'times_redeemed' => $payload['data']['times_redeemed'],
                 'redeem_by' => Carbon::createFromTimestamp($payload['data']['redeem_by']),
+                'valid' => $payload['data']['valid'],
             ]);
         }
         
@@ -135,6 +137,8 @@ class WebhookController extends CashierController
 
         if ($coupon) {
             $coupon->name = $payload['data']['name'];
+
+            $coupon->valid = $payload['data']['valid'];
 
             $coupon->save();
         }

@@ -26,6 +26,7 @@ class SubscriptionCoupon extends Model
         'expires_at',
         'created_at',
         'updated_at',
+        'deleted_at',
     ];
 
     /**
@@ -37,6 +38,8 @@ class SubscriptionCoupon extends Model
         'amount_off' => 'integer',
         'percent_off' => 'decimal:5',
         'max_redemptions' => 'integer',
+        'times_redeemed' => 'integer',
+        'valid' => 'boolean',
     ];
 
     /**
@@ -50,6 +53,20 @@ class SubscriptionCoupon extends Model
             $this->stripe_id, 
             CashierExtended::stripeOptions()
         );
+    }
+
+    /**
+     * Sync the coupon with the Stripe coupon object.
+     *
+     * @return void
+     */
+    public function syncCoupon() : void
+    {
+        $stripeCoupon = $this->asStripeCoupon();
+
+        $this->valid = $stripeCoupon->valid;
+
+        $this->save();
     }
 
     /**

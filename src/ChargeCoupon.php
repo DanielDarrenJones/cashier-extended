@@ -25,6 +25,7 @@ class ChargeCoupon extends Model
         'expires_at',
         'created_at',
         'updated_at',
+        'deleted_at',
     ];
 
     /**
@@ -36,6 +37,8 @@ class ChargeCoupon extends Model
         'amount_off' => 'integer',
         'percent_off' => 'decimal',
         'max_redemptions' => 'integer',
+        'times_redeemed' => 'integer',
+        'valid' => 'boolean',
     ];
 
     /**

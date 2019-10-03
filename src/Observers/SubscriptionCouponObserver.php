@@ -22,6 +22,7 @@ class SubscriptionCouponObserver
             'percent_off' => $subscriptionCoupon->percent_off,
             'duration_in_months' => $subscriptionCoupon->duration_in_months,
             'max_redemptions' => $subscriptionCoupon->max_redemptions,
+            'times_redeemed' => $subscriptionCoupon->times_redeemed,
             'name' => $subscriptionCoupon->name,
             'redeem_by' => isset($subscriptionCoupon->redeem_by) ? Carbon::parse($subscriptionCoupon->redeem_by)->getTimestamp() : null,
         ]));
