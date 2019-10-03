@@ -3,13 +3,11 @@
 namespace SteadfastCollective\CashierExtended;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ChargeCoupon extends Model
 {
-    use SoftDeletes;
-    
-    /**
+
+     /**
      * The attributes that are not mass assignable.
      *
      * @var array
@@ -38,6 +36,12 @@ class ChargeCoupon extends Model
         'max_redemptions' => 'integer',
     ];
 
+    /**
+     * Calculate the Coupon discount.
+     *
+     * @param  int $amount
+     * @return \Stripe\Coupon
+     */
     public function calculateFinalAmount(int $amount) : int
     {
         if ($this->amount_off !== null) {

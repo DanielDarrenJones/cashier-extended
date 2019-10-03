@@ -3,14 +3,12 @@
 namespace SteadfastCollective\CashierExtended;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Stripe\Coupon as StripeCoupon;
 
 class SubscriptionCoupon extends Model
 {
-    use SoftDeletes;
-    
+
     /**
      * The attributes that are not mass assignable.
      *
@@ -36,7 +34,7 @@ class SubscriptionCoupon extends Model
      */
     protected $casts = [
         'amount_off' => 'integer',
-        'percent_off' => 'decimal',
+        'percent_off' => 'decimal:5',
         'max_redemptions' => 'integer',
     ];
 
@@ -54,19 +52,44 @@ class SubscriptionCoupon extends Model
     }
 
     /**
-     * Sync the coupon.
+     * Create Stripe coupon.
+     *
+     * @param array $params
+     * @return void
+     */
+    public function createStripeCoupon(array $params) : void
+    {
+        StripeCoupon::create(array_filter($params), CashierExtended::stripeOptions());
+    }
+
+    /**
+     * Update Stripe coupon.
+     *
+     * @param string $stripeId
+     * @param array $params
+     * @return void
+     */
+    public function updateStripeCoupon(string $stripeId, array $params) : void
+    {
+        StripeCoupon::update($stripeId, [
+            'name' => $params['name'],
+            // 'metadata' => [],
+        ], CashierExtended::stripeOptions());
+    }
+
+    /**
+     * Delete Stripe coupon.
      *
      * @return void
      */
-    public function syncCoupon() : void
+    public function deleteStripeCoupon(string $stripeId) : void
     {
-        $coupon = $this->asStripeCoupon();
+        $coupon = StripeCoupon::retrieve(
+            $stripeId, 
+            CashierExtended::stripeOptions()
+        );
 
-        $this->max_redemptions = $coupon->max_redemptions;
-
-        $this->redeem_by = Carbon::createFromTimestamp($coupon->redeem_by);
-        
-        $this->save();
+        $coupon->delete();
     }
 
 }

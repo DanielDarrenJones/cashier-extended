@@ -105,16 +105,20 @@ class WebhookController extends CashierController
      */
     protected function handleCouponCreated($payload)
     {
-        SubscriptionCoupon::create([
-            'name' => $payload['data']['name'],
-            'code' => $payload['data']['id'],
-            'amount_off' => $payload['data']['amount_off'],
-            'percent_off' => $payload['data']['percent_off'],
-            'duration' => $payload['data']['duration'],
-            'duration_in_months' => $payload['data']['duration_in_months'],
-            'max_redemptions' => $payload['data']['max_redemptions'],
-            'redeem_by' => Carbon::createFromTimestamp($payload['data']['redeem_by']),
-        ]);
+        $coupon = $this->getCouponByStripeId($payload['data']['id']);
+
+        if (!$coupon) {
+            SubscriptionCoupon::create([
+                'name' => $payload['data']['name'],
+                'code' => $payload['data']['id'],
+                'amount_off' => $payload['data']['amount_off'],
+                'percent_off' => $payload['data']['percent_off'],
+                'duration' => $payload['data']['duration'],
+                'duration_in_months' => $payload['data']['duration_in_months'],
+                'max_redemptions' => $payload['data']['max_redemptions'],
+                'redeem_by' => Carbon::createFromTimestamp($payload['data']['redeem_by']),
+            ]);
+        }
         
         return $this->successMethod();
     }
