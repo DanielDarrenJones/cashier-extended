@@ -41,6 +41,15 @@ class ChargeCoupon extends Model
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'valid',
+    ];
+
+    /**
      * Calculate the Coupon discount.
      *
      * @param  int $amount
@@ -57,6 +66,67 @@ class ChargeCoupon extends Model
         $amount = (int) (round($amount));
 
         return $amount;
+    }
+
+    /**
+     * Increment the times redeemed of the Coupon.
+     *
+     * @param  int  $count
+     * @return $this
+     */
+    public function incrementTimesRedeemed($count = 1) : self
+    {
+        $this->updateTimesRedeemed($this->times_redeemed + $count);
+
+        return $this;
+    }
+
+    /**
+     * Increment the times redeemed of the Coupon.
+     *
+     * @param  int  $count
+     * @return $this
+     */
+    public function decrementTimesRedeemed($count = 1) : self
+    {
+        $this->updateTimesRedeemed(max(1, $this->times_redeemed - $count));
+
+        return $this;
+    }
+
+    /**
+     * Set times redeemed of the Coupon.
+     *
+     * @param  int  $count
+     * @return $this
+     */
+    public function updateTimesRedeemed(int $timed_redeemed) : self
+    {
+        $this->times_redeemed = $this->times_redeemed;
+
+        $this->save();
+
+        return $this;
+    }
+    
+    /**
+     * Determin if Coupon is valid.
+     *
+     * @return bool
+     */
+    public function getValidAttribute() : bool
+    {
+        return $this->canRedeem() || $this->times_redeemed < $this->max_redemptions;
+    }
+
+    /**
+     * Determin if Coupon redeem by date is valid.
+     *
+     * @return bool
+     */
+    public function canRedeem()
+    {
+        return !$this->redeem_by || ($this->redeem_by && $this->redeem_by->isFuture());
     }
 
 }

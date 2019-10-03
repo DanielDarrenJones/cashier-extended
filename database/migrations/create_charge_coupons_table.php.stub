@@ -18,7 +18,7 @@ class CreateChargeCouponsTable extends Migration
             $table->unsignedInteger('amount_off')->nullable();
             $table->decimal('percent_off', 5, 2)->nullable();
             $table->unsignedInteger('max_redemptions')->nullable();
-            $table->unsignedInteger('times_redeemed')->nullable();
+            $table->unsignedInteger('times_redeemed')->nullable()->default(0);
             $table->string('redeem_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
