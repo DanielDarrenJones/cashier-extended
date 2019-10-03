@@ -38,7 +38,6 @@ class ChargeCoupon extends Model
         'percent_off' => 'decimal',
         'max_redemptions' => 'integer',
         'times_redeemed' => 'integer',
-        'valid' => 'boolean',
     ];
 
     /**
