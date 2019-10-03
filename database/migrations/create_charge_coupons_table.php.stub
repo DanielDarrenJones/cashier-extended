@@ -20,7 +20,6 @@ class CreateChargeCouponsTable extends Migration
             $table->unsignedInteger('max_redemptions');
             $table->string('redeem_by')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

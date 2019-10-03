@@ -22,7 +22,6 @@ class CreateSubscriptionCouponsTable extends Migration
             $table->unsignedInteger('max_redemptions');
             $table->timestamp('redeem_by')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

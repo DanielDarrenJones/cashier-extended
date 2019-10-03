@@ -7,7 +7,6 @@ use Stripe\Coupon as StripeCoupon;
 
 class SubscriptionCoupon extends Model
 {
-
     /**
      * The attributes that are not mass assignable.
      *
