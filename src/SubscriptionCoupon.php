@@ -3,7 +3,6 @@
 namespace SteadfastCollective\CashierExtended;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
 use Stripe\Coupon as StripeCoupon;
 
 class SubscriptionCoupon extends Model

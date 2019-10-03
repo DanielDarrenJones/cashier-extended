@@ -2,6 +2,7 @@
 
 namespace SteadfastCollective\CashierExtended\Observers;
 
+use Illuminate\Support\Carbon;
 use SteadfastCollective\CashierExtended\SubscriptionCoupon;
 
 class SubscriptionCouponObserver
