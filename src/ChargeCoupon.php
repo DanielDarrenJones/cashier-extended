@@ -22,7 +22,7 @@ class ChargeCoupon extends Model
      * @var array
      */
     protected $dates = [
-        'expires_at',
+        'redeem_by',
         'created_at',
         'updated_at',
         'deleted_at',
