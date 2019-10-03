@@ -74,7 +74,7 @@ class ChargeCoupon extends Model
      * @param  int  $count
      * @return $this
      */
-    public function incrementTimesRedeemed($count = 1) : self
+    public function incrementTimesRedeemed(int $count = 1) : self
     {
         $this->updateTimesRedeemed($this->times_redeemed + $count);
 
@@ -87,7 +87,7 @@ class ChargeCoupon extends Model
      * @param  int  $count
      * @return $this
      */
-    public function decrementTimesRedeemed($count = 1) : self
+    public function decrementTimesRedeemed(int $count = 1) : self
     {
         $this->updateTimesRedeemed(max(1, $this->times_redeemed - $count));
 
@@ -100,9 +100,9 @@ class ChargeCoupon extends Model
      * @param  int  $count
      * @return $this
      */
-    public function updateTimesRedeemed(int $timed_redeemed) : self
+    public function updateTimesRedeemed(int $timesRedeemed) : self
     {
-        $this->times_redeemed = $this->times_redeemed;
+        $this->times_redeemed = $timesRedeemed;
 
         $this->save();
 
@@ -110,23 +110,33 @@ class ChargeCoupon extends Model
     }
     
     /**
-     * Determin if Coupon is valid.
+     * Determine if Coupon is valid.
      *
      * @return bool
      */
     public function getValidAttribute() : bool
     {
-        return $this->canRedeem() || $this->times_redeemed < $this->max_redemptions;
+        return $this->redeemByIsValid() && $this->timesRedeemedIsValid();
     }
 
     /**
-     * Determin if Coupon redeem by date is valid.
+     * Determine if Coupon redeem by date is valid.
      *
      * @return bool
      */
-    public function canRedeem()
+    private function redeemByIsValid() : bool
     {
-        return !$this->redeem_by || ($this->redeem_by && $this->redeem_by->isFuture());
+        return $this->redeem_by === null || ($this->redeem_by && $this->redeem_by->isFuture());
+    }
+
+    /**
+     * Determine if Coupon if times redeemed count is valid.
+     *
+     * @return bool
+     */
+    private function timesRedeemedIsValid() : bool
+    {
+        return $this->max_redemptions === null || $this->times_redeemed < $this->max_redemptions;
     }
 
 }
