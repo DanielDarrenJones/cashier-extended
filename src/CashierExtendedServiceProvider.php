@@ -3,6 +3,7 @@
 namespace SteadfastCollective\CashierExtended;
 
 use Illuminate\Support\ServiceProvider;
+use SteadfastCollective\CashierExtended\Commands\SyncCouponsCommand;
 use SteadfastCollective\CashierExtended\Observers\SubscriptionCouponObserver;
 
 class CashierExtendedServiceProvider extends ServiceProvider
@@ -43,6 +44,12 @@ class CashierExtendedServiceProvider extends ServiceProvider
         $this->app->singleton('cashier-extended', function () {
             return new CashierExtended;
         });
+
+        $this->app->bind('command.cashierextended:sync-subscription-coupons', SyncCouponsCommand::class);
+
+        $this->commands([
+            'command.cashierextended:sync-subscription-coupons',
+        ]);
         
     }
 }

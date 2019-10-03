@@ -50,7 +50,7 @@ class SubscriptionCoupon extends Model
     public function asStripeCoupon() : StripeCoupon
     {
         return StripeCoupon::retrieve(
-            $this->stripe_id, 
+            $this->code, 
             CashierExtended::stripeOptions()
         );
     }
@@ -65,6 +65,8 @@ class SubscriptionCoupon extends Model
         $stripeCoupon = $this->asStripeCoupon();
 
         $this->valid = $stripeCoupon->valid;
+
+        $this->times_redeemed = $stripeCoupon->times_redeemed;
 
         $this->save();
     }
