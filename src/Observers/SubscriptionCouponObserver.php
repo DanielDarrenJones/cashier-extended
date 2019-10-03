@@ -15,7 +15,7 @@ class SubscriptionCouponObserver
      */
     public function creating(SubscriptionCoupon $subscriptionCoupon)
     {
-        $subscriptionCoupon->createStripeCoupon([
+        $subscriptionCoupon->createStripeCoupon(array_filter([
             'id' => $subscriptionCoupon->code,
             'duration' => $subscriptionCoupon->duration,
             'amount_off' => $subscriptionCoupon->amount_off,
@@ -24,7 +24,7 @@ class SubscriptionCouponObserver
             'max_redemptions' => $subscriptionCoupon->max_redemptions,
             'name' => $subscriptionCoupon->name,
             'redeem_by' => isset($subscriptionCoupon->redeem_by) ? Carbon::parse($subscriptionCoupon->redeem_by)->getTimestamp() : null,
-        ]);
+        ]));
     }
 
     /**

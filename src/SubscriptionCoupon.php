@@ -58,7 +58,7 @@ class SubscriptionCoupon extends Model
      */
     public function createStripeCoupon(array $params) : void
     {
-        StripeCoupon::create(array_filter($params), CashierExtended::stripeOptions());
+        StripeCoupon::create($params, CashierExtended::stripeOptions());
     }
 
     /**
