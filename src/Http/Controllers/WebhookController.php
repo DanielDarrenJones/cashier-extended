@@ -118,7 +118,7 @@ class WebhookController extends CashierController
                     'duration_in_months' => $payload['data']['object']['duration_in_months'],
                     'max_redemptions' => $payload['data']['object']['max_redemptions'],
                     'times_redeemed' => $payload['data']['object']['times_redeemed'],
-                    'redeem_by' => Carbon::createFromTimestamp($payload['data']['object']['redeem_by']),
+                    'redeem_by' => isset($payload['data']['object']['redeem_by']) ? Carbon::createFromTimestamp($payload['data']['object']['redeem_by']) : null,
                     'valid' => $payload['data']['object']['valid'],
                 ]);
             });
