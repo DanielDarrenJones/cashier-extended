@@ -19,8 +19,8 @@ class CreateSubscriptionCouponsTable extends Migration
             $table->decimal('percent_off', 5, 2)->nullable();
             $table->enum('duration', ['forever', 'once', 'repeating'])->nullable();
             $table->string('duration_in_months')->nullable();
-            $table->unsignedInteger('max_redemptions');
-            $table->unsignedInteger('times_redeemed');
+            $table->unsignedInteger('max_redemptions')->nullable();
+            $table->unsignedInteger('times_redeemed')->nullable();
             $table->timestamp('redeem_by')->nullable();
             $table->boolean('valid')->default(1);
             $table->timestamps();
