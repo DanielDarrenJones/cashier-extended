@@ -3,10 +3,13 @@
 namespace SteadfastCollective\CashierExtended;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Stripe\Coupon as StripeCoupon;
 
 class SubscriptionCoupon extends Model
 {
+    use SoftDeletes;
+    
     /**
      * The attributes that are not mass assignable.
      *

@@ -3,9 +3,11 @@
 namespace SteadfastCollective\CashierExtended;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ChargeCoupon extends Model
 {
+    use SoftDeletes;
 
      /**
      * The attributes that are not mass assignable.
