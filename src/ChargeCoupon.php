@@ -126,7 +126,7 @@ class ChargeCoupon extends Model
      */
     private function redeemByIsValid() : bool
     {
-        return $this->redeem_by === null || ($this->redeem_by && $this->redeem_by->isFuture());
+        return is_null($this->redeem_by) || ($this->redeem_by && $this->redeem_by->isFuture());
     }
 
     /**
@@ -136,7 +136,7 @@ class ChargeCoupon extends Model
      */
     private function timesRedeemedIsValid() : bool
     {
-        return $this->max_redemptions === null || $this->times_redeemed < $this->max_redemptions;
+        return is_null($this->max_redemptions) || $this->times_redeemed < $this->max_redemptions;
     }
 
 }
