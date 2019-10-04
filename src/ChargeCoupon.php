@@ -35,7 +35,7 @@ class ChargeCoupon extends Model
      */
     protected $casts = [
         'amount_off' => 'integer',
-        'percent_off' => 'decimal',
+        'percent_off' => 'decimal:2',
         'max_redemptions' => 'integer',
         'times_redeemed' => 'integer',
     ];

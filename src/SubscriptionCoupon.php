@@ -36,7 +36,7 @@ class SubscriptionCoupon extends Model
      */
     protected $casts = [
         'amount_off' => 'integer',
-        'percent_off' => 'decimal:5',
+        'percent_off' => 'decimal:2',
         'max_redemptions' => 'integer',
         'times_redeemed' => 'integer',
         'valid' => 'boolean',
