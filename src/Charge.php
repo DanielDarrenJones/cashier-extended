@@ -53,9 +53,9 @@ class Charge extends Model
      */
     public function owner()
     {
-        $class = Cashier::stripeModel();
+        $model = config('cashier.model');
 
-        return $this->belongsTo($class, (new $class)->getForeignKey());
+        return $this->belongsTo($model, (new $model)->getForeignKey());
     }
 
     /**
