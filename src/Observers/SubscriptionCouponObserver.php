@@ -25,6 +25,7 @@ class SubscriptionCouponObserver
             'times_redeemed' => $subscriptionCoupon->times_redeemed,
             'name' => $subscriptionCoupon->name,
             'redeem_by' => isset($subscriptionCoupon->redeem_by) ? Carbon::parse($subscriptionCoupon->redeem_by)->getTimestamp() : null,
+            'currency' => config('cashier.currency'),
         ]));
     }
 
