@@ -219,9 +219,14 @@ class WebhookController extends CashierController
                 ->get()
                 ->each(function (Charge $charge) use ($data) {
 
-                    // Paid...
-                    if (isset($data['paid'])) {
-                        $charge->paid_at = (bool) $data['paid'] ? now() : null;
+                    // Status...
+                    if (isset($data['status'])) {
+                        $charge->stripe_status = $data['status'];
+
+                        // Paid at
+                        if ($data['status'] == 'succeeded') {
+                            $charge->paid_at = $charge->amount == 0 || $charge->amount_received > 0 ? Carbon::now()->toDateTimeString() : null;
+                        }
                     }
 
                     // Amount...
@@ -232,11 +237,6 @@ class WebhookController extends CashierController
                     // Amount Refunded...
                     if (isset($data['amount_refunded'])) {
                         $charge->amount_refunded = (int) $data['amount_refunded'];
-                    }
-
-                    // Status...
-                    if (isset($data['status'])) {
-                        $charge->stripe_status = $data['status'];
                     }
 
                     $charge->save();

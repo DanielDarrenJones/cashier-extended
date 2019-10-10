@@ -2,6 +2,7 @@
 
 namespace SteadfastCollective\CashierExtended;
 
+use Illuminate\Support\Carbon;
 use Laravel\Cashier\Billable as CashierBillable;
 use Laravel\Cashier\Exceptions\IncompletePayment;
 
@@ -22,7 +23,7 @@ trait Billable
                 'amount_refunded' => 0,
                 'currency' => $exception->payment->currency,
                 'stripe_status' => $exception->payment->status,
-                'paid_at' => $exception->payment->amount == 0 || $exception->payment->amount_received > 0 ? now() : null,
+                'paid_at' => $exception->payment->amount == 0 || $exception->payment->amount_received > 0 ? Carbon::now()->toDateTimeString() : null,
             ]);
 
             throw $exception;
@@ -33,10 +34,10 @@ trait Billable
             'name' => $name,
             'stripe_id' => $charge->id,
             'amount' => $charge->amount,
-            'amount_refunded' => $charge->amount_refunded ?: 0 ,
+            'amount_refunded' => isset($charge->amount_refunded) ? $charge->amount_refunded : 0 ,
             'currency' => $charge->currency,
             'stripe_status' => $charge->status,
-            'paid_at' => $charge->paid ? now() : null,
+            'paid_at' => $charge->amount == 0 || $charge->amount_received > 0 ? Carbon::now()->toDateTimeString() : null,
         ]);
     }
 
