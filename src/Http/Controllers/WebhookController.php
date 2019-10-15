@@ -215,7 +215,7 @@ class WebhookController extends CashierController
             $data = $payload['data']['object'];
 
             $user->charges()
-                ->where('stripe_id', $data['id'])
+                ->where('stripe_charge_id', $data['id'])
                 ->get()
                 ->each(function (Charge $charge) use ($data) {
 

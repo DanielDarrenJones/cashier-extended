@@ -19,6 +19,7 @@ trait Billable
             $this->charges()->create([
                 'name' => $name,
                 'stripe_id' => $exception->payment->id,
+                'stripe_charge_id' => null,
                 'amount' => $exception->payment->amount,
                 'amount_refunded' => 0,
                 'currency' => $exception->payment->currency,
@@ -33,6 +34,7 @@ trait Billable
         return $this->charges()->create([
             'name' => $name,
             'stripe_id' => $charge->id,
+            'stripe_charge_id' => $charge->charges['data'][0]->id,
             'amount' => $charge->amount,
             'amount_refunded' => isset($charge->amount_refunded) ? $charge->amount_refunded : 0 ,
             'currency' => $charge->currency,
