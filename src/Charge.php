@@ -2,9 +2,7 @@
 
 namespace SteadfastCollective\CashierExtended;
 
-use Carbon\Carbon;
 use LogicException;
-use DateTimeInterface;
 use Laravel\Cashier\Cashier;
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,6 +27,16 @@ class Charge extends Model
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'amount' => 'integer',
+        'amount_refunded' => 'integer',
+    ];
+
+    /**
      * Get the user that owns the subscription.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -45,9 +53,9 @@ class Charge extends Model
      */
     public function owner()
     {
-        $class = Cashier::stripeModel();
+        $model = config('cashier.model');
 
-        return $this->belongsTo($class, (new $class)->getForeignKey());
+        return $this->belongsTo($model, (new $model)->getForeignKey());
     }
 
     /**
