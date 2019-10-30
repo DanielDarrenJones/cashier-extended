@@ -60,7 +60,7 @@ class ChargeCoupon extends Model
         if ($this->amount_off !== null) {
             $amount = $amount - $this->amount_off;
         } elseif ($this->percent_off !== null) {
-            $amount = $amount * ($this->percent_off / 100);
+            $amount = $amount - ($amount * ($this->percent_off / 100));
         }
 
         $amount = (int) (round($amount));
