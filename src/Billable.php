@@ -5,6 +5,8 @@ namespace SteadfastCollective\CashierExtended;
 use Illuminate\Support\Carbon;
 use Laravel\Cashier\Billable as CashierBillable;
 use Laravel\Cashier\Exceptions\IncompletePayment;
+use SteadfastCollective\CashierExtended\Exceptions\InvalidAmount;
+use Stripe\Exception\InvalidRequestException;
 
 trait Billable
 {
@@ -26,6 +28,12 @@ trait Billable
                 'stripe_status' => $exception->payment->status,
                 'paid_at' => $exception->payment->amount == 0 || $exception->payment->amount_received > 0 ? Carbon::now()->toDateTimeString() : null,
             ]);
+
+            throw $exception;
+        } catch (InvalidRequestException $exception) {
+            if ($exception->getStripeCode() == "parameter_invalid_integer") {
+                throw InvalidAmount::amountMustBeGreaterThanZero();
+            }
 
             throw $exception;
         }

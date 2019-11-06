@@ -65,7 +65,7 @@ class ChargeCoupon extends Model
 
         $amount = (int) (round($amount));
 
-        return $amount;
+        return max($amount, 0);
     }
 
     /**
