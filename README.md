@@ -5,10 +5,6 @@
 <a href="https://packagist.org/packages/steadfastcollective/cashier-extended"><img src="https://poser.pugx.org/steadfastcollective/cashier-extended/license.svg" alt="License"></a>
 </p>
 
-## WARNING
-
-This package is still under heavy development, we would strongly not recommend using this in its current state. 
-
 ## Introduction
 
 Laravel Cashier provides an expressive, fluent interface to [Stripe's](https://stripe.com) subscription billing services. It handles almost all of the boilerplate subscription billing code you are dreading writing. In addition to basic subscription management, Cashier can handle coupons, swapping subscription, subscription "quantities", cancellation grace periods, and even generate invoice PDFs.
@@ -61,6 +57,9 @@ The following webhooks have been registered to keep your data up to date:
 * charge.refunded
 * charge.succeeded
 * charge.updated
+* payment_intent.succeeded
+* payment_intent.created
+* payment_intent.payment_failed
 
 to make use of the new webhooks you will need to update your `routes\Web.php` route file:
 
