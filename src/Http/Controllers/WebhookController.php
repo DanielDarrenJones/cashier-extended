@@ -108,7 +108,7 @@ class WebhookController extends CashierController
         $coupon = $this->getCouponByStripeId($payload['data']['object']['id']);
 
         if (!$coupon) {
-            SubscriptionCoupon::withoutEvents(function() use ($payload) {
+            SubscriptionCoupon::withoutEvents(function () use ($payload) {
                 SubscriptionCoupon::create([
                     'name' => $payload['data']['object']['name'],
                     'code' => $payload['data']['object']['id'],
@@ -177,9 +177,11 @@ class WebhookController extends CashierController
                 ->get()
                 ->each(function (Charge $charge) use ($data) {
 
-                    // Update Payment Intent ID to Charge ID
-                    // $charge->id = $data['id'];
-
+                    // Charge ID...
+                    if (isset($data['id'])) {
+                        $charge->stripe_charge_id = $data['id'];
+                    }
+                    
                     // Paid...
                     if (isset($data['paid'])) {
                         $charge->paid_at = (bool) $data['paid'] ? now() : null;
@@ -225,7 +227,7 @@ class WebhookController extends CashierController
 
                         // Paid at
                         if ($data['status'] == 'succeeded') {
-                            $charge->paid_at = $charge->amount == 0 || $charge->amount_received > 0 ? Carbon::now()->toDateTimeString() : null;
+                            $charge->paid_at = (bool) $data['paid'] ? now() : null;
                         }
                     }
 
