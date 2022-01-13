@@ -10,10 +10,10 @@ class ChargeCoupon extends Model
     use SoftDeletes;
 
     /**
-    * The attributes that are not mass assignable.
-    *
-    * @var array
-    */
+     * The attributes that are not mass assignable.
+     *
+     * @var array
+     */
     protected $guarded = [];
 
     /**
@@ -52,7 +52,7 @@ class ChargeCoupon extends Model
     /**
      * Calculate the Coupon discount.
      *
-     * @param  int $amount
+     * @param  int  $amount
      * @return \Stripe\Coupon
      */
     public function calculateFinalAmount(int $amount): int
@@ -108,7 +108,7 @@ class ChargeCoupon extends Model
 
         return $this;
     }
-    
+
     /**
      * Determine if Coupon is valid.
      *

@@ -168,6 +168,7 @@ class Charge extends Model
      * Get the subscription as a Stripe subscription object.
      *
      * @return \Stripe\Charge
+     *
      * @throws \LogicException
      */
     public function asStripeCharge()

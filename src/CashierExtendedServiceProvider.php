@@ -17,19 +17,19 @@ class CashierExtendedServiceProvider extends ServiceProvider
 
         if (! class_exists('CreateChargesTable')) {
             $this->publishes([
-                __DIR__ . '/../database/migrations/create_charges_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_charges_table.php'),
+                __DIR__.'/../database/migrations/create_charges_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_charges_table.php'),
             ], 'migrations');
         }
 
         if (! class_exists('CreateChargeCouponsTable')) {
             $this->publishes([
-                __DIR__ . '/../database/migrations/create_charge_coupons_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_charge_coupons_table.php'),
+                __DIR__.'/../database/migrations/create_charge_coupons_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_charge_coupons_table.php'),
             ], 'migrations');
         }
 
         if (! class_exists('CreateSubscriptionCouponsTable')) {
             $this->publishes([
-                __DIR__ . '/../database/migrations/create_subscription_coupons_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_subscription_coupons_table.php'),
+                __DIR__.'/../database/migrations/create_subscription_coupons_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_subscription_coupons_table.php'),
             ], 'migrations');
         }
     }

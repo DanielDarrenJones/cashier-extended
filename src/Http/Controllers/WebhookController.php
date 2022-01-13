@@ -123,7 +123,7 @@ class WebhookController extends CashierController
                 ]);
             });
         }
-        
+
         return $this->successMethod();
     }
 

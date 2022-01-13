@@ -32,7 +32,7 @@ trait Billable
 
             throw $exception;
         } catch (InvalidRequestException $exception) {
-            if ($exception->getStripeCode() == "parameter_invalid_integer") {
+            if ($exception->getStripeCode() == 'parameter_invalid_integer') {
                 throw InvalidAmount::amountMustBeGreaterThanZero();
             }
 
@@ -45,7 +45,7 @@ trait Billable
             'stripe_id' => $charge->id,
             'stripe_charge_id' => $charge->charges['data'][0]->id,
             'amount' => $charge->amount,
-            'amount_refunded' => isset($charge->amount_refunded) ? $charge->amount_refunded : 0 ,
+            'amount_refunded' => isset($charge->amount_refunded) ? $charge->amount_refunded : 0,
             'currency' => $charge->currency,
             'stripe_status' => $charge->status,
             'paid_at' => $charge->amount == 0 || $charge->amount_received > 0 ? Carbon::now()->toDateTimeString() : null,

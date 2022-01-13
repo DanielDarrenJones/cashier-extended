@@ -85,7 +85,7 @@ class SubscriptionCoupon extends Model
     /**
      * Update Stripe coupon.
      *
-     * @param  string $stripeId
+     * @param  string  $stripeId
      * @param  array  $params
      * @return void
      */
