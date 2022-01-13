@@ -13,7 +13,6 @@ class CashierExtendedServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
         SubscriptionCoupon::observe(SubscriptionCouponObserver::class);
 
         if (! class_exists('CreateChargesTable')) {
@@ -50,6 +49,5 @@ class CashierExtendedServiceProvider extends ServiceProvider
         $this->commands([
             'command.cashierextended:sync-subscription-coupons',
         ]);
-        
     }
 }

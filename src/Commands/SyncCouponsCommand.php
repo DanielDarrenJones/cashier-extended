@@ -38,7 +38,7 @@ class SyncCouponsCommand extends Command
      */
     public function handle()
     {
-        $coupons = SubscriptionCoupon::cursor()->filter(function($coupon) {
+        $coupons = SubscriptionCoupon::cursor()->filter(function ($coupon) {
             return $coupon->valid;
         });
 

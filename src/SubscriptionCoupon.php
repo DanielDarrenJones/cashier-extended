@@ -9,7 +9,7 @@ use Stripe\Coupon as StripeCoupon;
 class SubscriptionCoupon extends Model
 {
     use SoftDeletes;
-    
+
     /**
      * The attributes that are not mass assignable.
      *
@@ -47,10 +47,10 @@ class SubscriptionCoupon extends Model
      *
      * @return \Stripe\Coupon
      */
-    public function asStripeCoupon() : StripeCoupon
+    public function asStripeCoupon(): StripeCoupon
     {
         return StripeCoupon::retrieve(
-            $this->code, 
+            $this->code,
             CashierExtended::stripeOptions()
         );
     }
@@ -60,7 +60,7 @@ class SubscriptionCoupon extends Model
      *
      * @return void
      */
-    public function syncCoupon() : void
+    public function syncCoupon(): void
     {
         $stripeCoupon = $this->asStripeCoupon();
 
@@ -74,10 +74,10 @@ class SubscriptionCoupon extends Model
     /**
      * Create Stripe coupon.
      *
-     * @param array $params
+     * @param  array  $params
      * @return void
      */
-    public function createStripeCoupon(array $params) : void
+    public function createStripeCoupon(array $params): void
     {
         StripeCoupon::create($params, CashierExtended::stripeOptions());
     }
@@ -85,11 +85,11 @@ class SubscriptionCoupon extends Model
     /**
      * Update Stripe coupon.
      *
-     * @param string $stripeId
-     * @param array $params
+     * @param  string $stripeId
+     * @param  array  $params
      * @return void
      */
-    public function updateStripeCoupon(string $stripeId, array $params) : void
+    public function updateStripeCoupon(string $stripeId, array $params): void
     {
         StripeCoupon::update($stripeId, [
             'name' => $params['name'],
@@ -102,14 +102,13 @@ class SubscriptionCoupon extends Model
      *
      * @return void
      */
-    public function deleteStripeCoupon(string $stripeId) : void
+    public function deleteStripeCoupon(string $stripeId): void
     {
         $coupon = StripeCoupon::retrieve(
-            $stripeId, 
+            $stripeId,
             CashierExtended::stripeOptions()
         );
 
         $coupon->delete();
     }
-
 }

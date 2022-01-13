@@ -14,7 +14,8 @@ trait Billable
         charge as parentCharge;
     }
 
-    public function charge($name, $amount, $paymentMethod, array $options = []) {
+    public function charge($name, $amount, $paymentMethod, array $options = [])
+    {
         try {
             $charge = $this->parentCharge($amount, $paymentMethod, $options);
         } catch (IncompletePayment $exception) {

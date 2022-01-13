@@ -107,7 +107,7 @@ class WebhookController extends CashierController
     {
         $coupon = $this->getCouponByStripeId($payload['data']['object']['id']);
 
-        if (!$coupon) {
+        if (! $coupon) {
             SubscriptionCoupon::withoutEvents(function () use ($payload) {
                 SubscriptionCoupon::create([
                     'name' => $payload['data']['object']['name'],
@@ -171,7 +171,7 @@ class WebhookController extends CashierController
 
         if ($user) {
             $data = collect($payload['data']['object']['charges']['data'])->first();
-        
+
             $user->charges()
                 ->where('stripe_id', $payload['data']['object']['id'])
                 ->get()
@@ -181,7 +181,7 @@ class WebhookController extends CashierController
                     if (isset($data['id'])) {
                         $charge->stripe_charge_id = $data['id'];
                     }
-                    
+
                     // Paid...
                     if (isset($data['paid'])) {
                         $charge->paid_at = (bool) $data['paid'] ? now() : null;

@@ -14,6 +14,6 @@ class InvalidAmount extends Exception
      */
     public static function amountMustBeGreaterThanZero()
     {
-        return new static("The final amount must be greater than zero.");
+        return new static('The final amount must be greater than zero.');
     }
 }

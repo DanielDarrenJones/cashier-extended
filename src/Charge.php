@@ -2,8 +2,6 @@
 
 namespace SteadfastCollective\CashierExtended;
 
-use LogicException;
-use Laravel\Cashier\Cashier;
 use Illuminate\Database\Eloquent\Model;
 
 class Charge extends Model
@@ -61,7 +59,7 @@ class Charge extends Model
     /**
      * Determine if the charge has been paid.
      *
-     * @return boolean
+     * @return bool
      */
     public function paid()
     {
@@ -71,7 +69,7 @@ class Charge extends Model
     /**
      * Determine if the charge has not been paid.
      *
-     * @return boolean
+     * @return bool
      */
     public function unpaid()
     {

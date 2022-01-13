@@ -6,5 +6,5 @@ use Laravel\Cashier\Cashier;
 
 class CashierExtended extends Cashier
 {
-    
+    //
 }

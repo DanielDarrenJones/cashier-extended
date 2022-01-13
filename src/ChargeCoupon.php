@@ -9,11 +9,11 @@ class ChargeCoupon extends Model
 {
     use SoftDeletes;
 
-     /**
-     * The attributes that are not mass assignable.
-     *
-     * @var array
-     */
+    /**
+    * The attributes that are not mass assignable.
+    *
+    * @var array
+    */
     protected $guarded = [];
 
     /**
@@ -55,7 +55,7 @@ class ChargeCoupon extends Model
      * @param  int $amount
      * @return \Stripe\Coupon
      */
-    public function calculateFinalAmount(int $amount) : int
+    public function calculateFinalAmount(int $amount): int
     {
         if ($this->amount_off !== null) {
             $amount = $amount - $this->amount_off;
@@ -74,7 +74,7 @@ class ChargeCoupon extends Model
      * @param  int  $count
      * @return $this
      */
-    public function incrementTimesRedeemed(int $count = 1) : self
+    public function incrementTimesRedeemed(int $count = 1): self
     {
         $this->updateTimesRedeemed($this->times_redeemed + $count);
 
@@ -87,7 +87,7 @@ class ChargeCoupon extends Model
      * @param  int  $count
      * @return $this
      */
-    public function decrementTimesRedeemed(int $count = 1) : self
+    public function decrementTimesRedeemed(int $count = 1): self
     {
         $this->updateTimesRedeemed(max(1, $this->times_redeemed - $count));
 
@@ -100,7 +100,7 @@ class ChargeCoupon extends Model
      * @param  int  $count
      * @return $this
      */
-    public function updateTimesRedeemed(int $timesRedeemed) : self
+    public function updateTimesRedeemed(int $timesRedeemed): self
     {
         $this->times_redeemed = $timesRedeemed;
 
@@ -114,7 +114,7 @@ class ChargeCoupon extends Model
      *
      * @return bool
      */
-    public function getValidAttribute() : bool
+    public function getValidAttribute(): bool
     {
         return $this->redeemByIsValid() && $this->timesRedeemedIsValid();
     }
@@ -124,7 +124,7 @@ class ChargeCoupon extends Model
      *
      * @return bool
      */
-    private function redeemByIsValid() : bool
+    private function redeemByIsValid(): bool
     {
         return is_null($this->redeem_by) || ($this->redeem_by && $this->redeem_by->isFuture());
     }
@@ -134,9 +134,8 @@ class ChargeCoupon extends Model
      *
      * @return bool
      */
-    private function timesRedeemedIsValid() : bool
+    private function timesRedeemedIsValid(): bool
     {
         return is_null($this->max_redemptions) || $this->times_redeemed < $this->max_redemptions;
     }
-
 }
